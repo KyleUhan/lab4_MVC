@@ -43,7 +43,7 @@ public class Greeter extends HttpServlet {
         // For some applications, we would not want to create a new one each time.
         WelcomeService ws = new WelcomeService();
         // Always a good idea to trim and/or validate input data
-        String result = ws.getTimeFrame();
+        String result = ws.getTimeFrame(c);
 
         // Parameters are read only Request object properties, but attributes
         // are read/write. We can use attributes to store data for use on

@@ -19,32 +19,30 @@ import org.joda.time.DateTime;
  */
 public class WelcomeService {
 
-    private Calendar currentTime;
+    final double MORNING_MAX = 10.5;
+    final double AFTERNOON_MAX = 17.5;
+    String timeFrame = "";
+  
+    public WelcomeService(){}
     
-    public WelcomeService(){
-    }
-    
-    public String getTimeFrame(){
-        /*Date d = new Date();
-        d = currentTime.getInstance().getTime();*/
+    public final String getTimeFrame(String name){
+        if(name == null || name.isEmpty()){
+            name = "Stranger";
+        }
         DateTime dt = new DateTime();
         int hour = dt.getHourOfDay();
-        String timeFrame = "";
-        if(hour > 9){
-           if(hour > 18){
-               timeFrame = "P";
-           }else{
-               timeFrame = "NOON";
-           }
+        if(hour > MORNING_MAX){
+           timeFrame = hour > AFTERNOON_MAX ? "evening" : "afternoon";
         }else{
-            timeFrame = "A";
+            timeFrame = "morning";
         }
-        return timeFrame + " " + hour ;
+        return combineTimeName(name,timeFrame);
     }
     
-    
-    public String combineTimeName(String name){
-        
-        return "";
+    private String combineTimeName(String name, String hour){
+        name = name.trim();
+        StringBuilder sb = new StringBuilder("Good ");
+        sb.append(hour).append(", ").append(name).append(". Welcome!");
+        return sb.toString();
     }
 }
